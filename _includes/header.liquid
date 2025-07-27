@@ -24,6 +24,31 @@
         <!-- Social Icons -->
         <div class="navbar-brand social">{% include social.liquid %}</div>
       {% endif %}
+      
+      <!-- Contact Icons - Left Side -->
+      <div class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="mailto:{{ site.data.socials.email | encode_email }}" title="Email">
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://instagram.com/{{ site.data.socials.instagram_id }}" title="Instagram" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="WeChatBtn" title="WeChat">
+            <i class="fa-brands fa-weixin"></i>
+          </a>
+        </li>
+      </div>
+      
+      <!-- WeChat Modal -->
+      <div id="WeChatMod" class="wechat-modal">
+        <img src="{{ site.data.socials.wechat_qr | prepend: 'assets/img/' | relative_url }}" alt="WeChat QR" id="WeChatQR">
+      </div>
+      
       <!-- Navbar Toggle -->
       <button
         class="navbar-toggler collapsed ml-auto"
@@ -117,11 +142,12 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+          
           {% if site.search_enabled %}
             <!-- Search -->
             <li class="nav-item">
               <button id="search-toggle" title="Search" onclick="openSearchModal()">
-                <span class="nav-link">ctrl k <i class="ti ti-search"></i></span>
+                <span class="nav-link"> <i class="ti ti-search"></i></span>
               </button>
             </li>
           {% endif %}
@@ -148,3 +174,6 @@
     </progress>
   {% endif %}
 </header>
+
+<!-- WeChat JavaScript -->
+<script defer src="{{ '/assets/js/wechat.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>

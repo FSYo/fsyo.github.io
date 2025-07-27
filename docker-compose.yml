@@ -14,8 +14,18 @@ services:
     #     USERNAME: # echo $USER
     ports:
       - 8080:8080
-      - 35729:35729
+      - 35729:35729 # 35729 是 LiveReload 的默认端口，确保也暴露出来
     volumes:
       - .:/srv/jekyll
     environment:
       - JEKYLL_ENV=development
+    develop:
+      watch:
+        - action: sync
+          path: ./               # 本地代码根目录
+          target: /srv/jekyll    # 容器中代码路径
+          ignore:
+            - _site/             # Jekyll 生成的文件夹忽略
+            - node_modules/
+        - action: rebuild
+          path: Gemfile
